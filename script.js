@@ -1,34 +1,26 @@
-// Variable para almacenar el número a adivinar
 let numeroAAdivinar = [];
 let intentos = 0;
 
-// Referencias a los elementos HTML
 const contador = document.getElementById('contador');
 const intentoInput = document.getElementById('intento');
 const flipButton = document.getElementById('flip-button');
 const resetButton = document.getElementById('reset-button');
 const tablero = document.querySelector('.tablero');
 
-// Función para generar el número aleatorio
+// hacer el numero
 function generarNumeroAAdivinar() {
     const numeros = [];
     while (numeros.length < 4) {
-        let num = Math.floor(Math.random() * 10);  // Número aleatorio entre 0 y 9
-        if (!numeros.includes(num)) {
-            numeros.push(num);
-        }
-    }
-    // Asignamos cada número a sus respectivas variables
+        let num = Math.floor(Math.random() * 10);  
+        if (!numeros.includes(num)) {numeros.push(num);}}
     [A, B, C, D] = numeros;
     numeroAAdivinar = [A, B, C, D];
-}
 
-// Función para comparar el intento con el número a adivinar
 function verificarIntento(intento) {
     let resultado = [];
-    let intentosNumeros = intento.split('').map(Number); // Convierte el intento en array de números
+    let intentosNumeros = intento.split('').map(Number);
     
-    // Verificar si el número es correcto en su posición
+    // cpmparar
     for (let i = 0; i < 4; i++) {
         if (intentosNumeros[i] === numeroAAdivinar[i]) {
             resultado.push('true');
@@ -39,12 +31,11 @@ function verificarIntento(intento) {
         }
     }
 
-    // Actualizar el tablero con los resultados
+    // pal cuadro
     for (let i = 0; i < 4; i++) {
         const div = document.getElementById(i + 1 + intentos * 4);
-        div.textContent = intentosNumeros[i];  // Muestra el número del intento
-        div.dataset.state = resultado[i];      // Actualiza el estado
-        // Cambiar color según el resultado
+        div.textContent = intentosNumeros[i];  
+        div.dataset.state = resultado[i];      
         if (resultado[i] === 'true') {
             div.style.backgroundColor = 'green';
         } else if (resultado[i] === 'false') {
@@ -55,40 +46,39 @@ function verificarIntento(intento) {
     }
 }
 
-// Función que ejecuta el intento (la misma que se ejecuta con el botón)
+// para pendejos
 function intentar() {
     const intento = intentoInput.value;
     if (intento.length !== 4 || isNaN(intento)) {
-        alert('Debe ingresar un intento válido de 4 números');
+        alert('Hay algo que no es un numero');
         return;
     }
 
     intentos++;
-    contador.textContent = intentos;  // Actualiza el contador de intentos
+    contador.textContent = intentos;  // contador
 
     verificarIntento(intento);
 
-    // Limpiar el campo de texto para el siguiente intento
+    // Limpiar 
     intentoInput.value = '';
 }
 
-// Evento para el botón "Intentar"
+// 
 flipButton.addEventListener('click', intentar);
 
-// Evento para la tecla Enter en el campo de texto
+// para poder tocar enter
 intentoInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {  // Verifica si la tecla presionada es Enter
-        intentar();  // Ejecuta la función intentar
-        event.preventDefault();  // Evita que se haga un "submit" o "enter" por defecto
+    if (event.key === 'Enter') { 
+        intentar();  
+        event.preventDefault();  
     }
 });
 
-// Evento para el botón "Rendirse"
+// pa los pendejos parte 2
 resetButton.addEventListener('click', () => {
-    location.reload();  // Recarga la página cuando el botón "Rendirse" es presionado
+    location.reload();  
 });
 
-// Inicializar el juego cuando los intentos son 0
 if (contador.textContent === '0') {
     generarNumeroAAdivinar();
 }
