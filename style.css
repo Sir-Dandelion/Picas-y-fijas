@@ -23,7 +23,7 @@ body {
   place-items: center
 }
 
- /* 4 columnas */
+ 
 .stats,.label,textarea {
   text-align: right;
   color: #101020;
@@ -66,7 +66,6 @@ textarea {   border-radius: 5px;
 text-align: center;
 }
 
- /* 4 columnas */
 .buttons {
   display: flex;
   justify-content: space-between;
